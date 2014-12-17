@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2638313997">
+    <data-source source="LOCAL" name="Rails TimeTracker: development" uuid="8141def3-727e-4575-ac0e-3cb3b3b71b18">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\fwom_000\Documents\GitHub\TimeTracker\db\development.sqlite3</jdbc-url>
+      <libraries>
+        <library>
+          <url>file://$USER_HOME$/.RubyMine50/config/jdbc-drivers/sqlite-jdbc-3.7.6.3-20110609.081603-3.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+

@@ -7,25 +7,41 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to content_tag('canvas', title, id: 'logocanvas', style: 'width: 120px;height: 48px;padding: 0px; margin-bottom: 1px !important; margin-top: 1px !important; margin-left: 0px !important; margin-right: 0px !important;' , class: 'navbar-brand'), root_path %>
+      <%= link_to content_tag('canvas', title, id: 'logocanvas', style: 'width: 120px;height: 48px;padding: 0px; margin-bottom: 1px !important; margin-top: 1px !important; margin-left: 0px !important; margin-right: 0px !important;', class: 'navbar-brand'), root_path %>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <% nav_items.each do |nav_item| %>
-          <%= display_nav_item(nav_item[:displaytext], nav_item[:controllername], nav_item[:linkurl]) %>
+      <ul class="nav navbar-nav pull-right">
+        <% if user_signed_in? %>
+          <% nav_items.each do |nav_item| %>
+            <%= display_nav_item(nav_item[:displaytext], nav_item[:controllername], nav_item[:linkurl]) %>
+          <% end %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
+              <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Nav header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+            </ul>
+          </li>
+          <li title="<%= current_user.inspect %>">
+            <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %>
+          </li>
+          <li>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+          </li>
+        <% else %>
+          <li class="pull-right">
+            <%= link_to 'Login', new_user_session_path %>
+          </li>
+          <li class="pull-right">
+            <%= link_to 'Register', new_user_registration_path %>
+          </li>
         <% end %>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
       </ul>
     </div>
   </div>

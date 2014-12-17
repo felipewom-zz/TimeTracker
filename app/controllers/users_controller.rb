@@ -4,12 +4,17 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if current_user.try(:admin?)
+      @users = User.all
+    else
+      redirect_to root_path, notice: 'You are not administrator.'
+    end
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find params[:id]
   end
 
   # GET /users/new
@@ -19,13 +24,14 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    redirect_to root_path, notice: 'You are not administrator.' unless current_user.id == params[:id]
+    @user = User.find params[:id]
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -40,8 +46,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user = User.find params[:id]
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(params[:user].permit(:first_name, :last_name, :username))
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
