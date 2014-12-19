@@ -8,7 +8,11 @@ before_filter :configure_sign_in_params, only: [:create]
 
   # POST /resource/sign_in
   def create
-    super
+    if known_user_with_good_password
+      sign_in
+    else
+      super
+    end
   end
 
   # DELETE /resource/sign_out
